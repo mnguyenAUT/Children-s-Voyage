@@ -1,0 +1,87 @@
+    
+    audio {
+      width: 35%;
+      transform: scale(2.5); /* Scale up the entire audio control interface */
+      transform-origin: center; /* Ensure scaling is centered */
+    }
+    
+    a {
+      text-decoration: none; /* Removes underline from all links */
+      color: inherit; /* Optional: inherit color from parent */
+    }
+
+    a:hover {
+      text-decoration: none; /* Ensure no underline on hover */
+      color: blue; /* Optional: change color on hover */
+    }
+    
+    .loading {
+      font-size: 1.5rem;
+      color: #555;
+    }
+    
+    .image-container {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .image-container .thumbnail {
+        transition: transform 0.5s ease;
+    }
+
+    .image-container:hover .thumbnail {
+        transform: scale(1.05);
+    }
+
+    .image-container .shine-effect {
+        position: absolute;
+        top: 0;
+        left: -75%;
+        width: 50%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.5);
+        transform: skewX(-20deg);
+        transition: left 0.5s ease;
+    }
+
+    .image-container:hover .shine-effect {
+        left: 125%;
+    }
+
+    .caption-container {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        padding: 5px;
+        background-color: rgba(255, 255, 255, 0.8);
+        text-align: center;
+    }
+
+    .caption-container p {
+        margin-bottom: 0;
+        color: black;
+    }
+    
+    .thumbnail {
+            height: 200px;
+            object-fit: cover;
+            width: 100%;
+        }
+        .pagination-arrows {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .pagination-arrows a {
+            font-size: 2rem;
+            color: #007bff;
+            text-decoration: none;
+        }
+        .pagination-arrows a.disabled {
+            pointer-events: none;
+            color: #d3d3d3;
+        }
+        
+        
+        
