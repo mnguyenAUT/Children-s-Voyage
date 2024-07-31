@@ -107,8 +107,13 @@ $jpgFile = $src;
     }
   </script>
 <p></p><p>
-<button class="btn btn-secondary btn-lg" onclick="window.location.href='https://cv.aut.ac.nz/books/gallery.php';">Back to Homepage</button>
-</p>
+<button class="btn btn-secondary rounded-pill" style="display:inline-block;" onclick="window.close();">
+      Stop, Close and Go Back
+  </button>
+
+  <button id="pdfButton" class="btn btn-primary rounded-pill" onclick="window.open('read.php?url=https://instructionalseries.tki.org.nz<?php echo $pdfFile; ?>', '_blank');">
+      Load PDF File manually.
+  </button>
 <?php } else { ?>
   <!-- Display "Read PDF now" button if MP3 file doesn't exist -->
 <!-- Go Back Button -->
@@ -122,8 +127,13 @@ $jpgFile = $src;
 <?php } ?>
 
 <p>
-<img src="<?php echo $imageURL; ?>" height="75%">
+  <?php if(isset($imageURL) && !empty($imageURL)): ?>
+    <img src="<?php echo $imageURL; ?>" height="75%">
+  <?php else: ?>
+    <img src="https://instructionalseries.tki.org.nz<?php echo $jpgFile; ?>" height="100%">
+  <?php endif; ?>
 </p>
+
 
 </p>
 </center>

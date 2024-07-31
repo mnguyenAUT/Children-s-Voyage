@@ -15,7 +15,7 @@
         <div class="col-3 mb-4">
     <div class="image-container position-relative" style="overflow: hidden;">
         <a href="https://<?php echo $textLink; ?>&src=<?php echo $imageURL; ?>" target="_blank" style="display: block;">
-            <div class="image-wrapper" style="width: 100%; padding-bottom: 140%; position: relative; background-color: #f0f0f0;">
+            <div class="image-wrapper" style="width: 100%; padding-bottom: 137%; position: relative; background-color: #f0f0f0;">
                 <img src="<?php echo $imageURL; ?>" alt="Book Thumbnail" class="thumbnail img-fluid" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;">
             </div>
         </a>
