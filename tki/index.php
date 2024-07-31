@@ -106,29 +106,34 @@ $jpgFile = $src;
       // Custom functionality when audio starts playing
     }
   </script>
-<p></p><p>
+<br/>
+<p>
 <button class="btn btn-secondary rounded-pill" style="display:inline-block;" onclick="window.close();">
-      Stop, Close and Go Back
+      Go Back
   </button>
 
   <button id="pdfButton" class="btn btn-primary rounded-pill" onclick="window.open('read.php?url=https://instructionalseries.tki.org.nz<?php echo $pdfFile; ?>', '_blank');">
-      Load PDF File manually.
+      Load PDF
   </button>
+  <hr/>
+  <p>Click Play button, the PDF file will be loaded automatically! If not, click 'Load PDF'.</p>
 <?php } else { ?>
   <!-- Display "Read PDF now" button if MP3 file doesn't exist -->
 <!-- Go Back Button -->
-  <button class="btn btn-secondary btn-lg" onclick="window.location.href='https://cv.aut.ac.nz/books/gallery.php';">Back to Homepage</button>
+  <button class="btn btn-secondary rounded-pill" style="display:inline-block;" onclick="window.close();">
+      Go Back
+  </button>
 
 
 <a href="read.php?url=https://instructionalseries.tki.org.nz<?php echo $pdfFile; ?>" target="_parent">
-  <button class="btn btn-primary btn-lg">Read PDF now</button>
+  <button class="btn btn-primary rounded-pill">No Audio, Only PDF available</button>
 </a>
 
 <?php } ?>
 
 <p>
   <?php if(isset($imageURL) && !empty($imageURL)): ?>
-    <img src="<?php echo $imageURL; ?>" height="75%">
+    <img src="<?php echo $imageURL; ?>" style="width: 75%;">
   <?php else: ?>
     <img src="https://instructionalseries.tki.org.nz<?php echo $jpgFile; ?>" height="100%">
   <?php endif; ?>

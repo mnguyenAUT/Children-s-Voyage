@@ -12,16 +12,19 @@
         // Replace '-' with spaces
         $caption = str_replace('-', ' ', $captionPart);
     ?>
+        <div class="col-lg-3 col-md-4 col-xs-12 mb-4">
+        <!--
         <div class="col-3 mb-4">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">-->
     <div class="image-container position-relative" style="overflow: hidden;">
         <a href="https://<?php echo $textLink; ?>&src=<?php echo $imageURL; ?>" target="_blank" style="display: block;">
-            <div class="image-wrapper" style="width: 100%; padding-bottom: 137%; position: relative; background-color: #f0f0f0;">
+            <div class="image-wrapper" style="width: 100%; padding-bottom: 145%; position: relative; background-color: #f0f0f0;">
                 <img src="<?php echo $imageURL; ?>" alt="Book Thumbnail" class="thumbnail img-fluid" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;">
             </div>
         </a>
-        <div class="caption-container position-absolute w-100 p-1" style="bottom: 0; background-color: rgba(255, 255, 255, 0.8);">
+        <div class="caption-container position-absolute w-100 p-1" style="bottom: 0; background-color: rgba(240, 255, 255, 0.8);">
             <a href="https://<?php echo $textLink; ?>&src=<?php echo $imageURL; ?>" target="_blank">
-                <p class="text-center mb-0" style="color: black;"><?php echo htmlentities($caption); ?></p>
+                <p class="text-center mb-0" style="color: black;"><strong><?php echo htmlentities($caption); ?></strong></p>
             </a>
         </div>
     </div>

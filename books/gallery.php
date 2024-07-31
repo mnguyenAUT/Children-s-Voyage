@@ -1,5 +1,13 @@
 <?php
-session_start(); // Start the session
+
+session_start();
+
+// Default books per page
+$booksPerPage = isset($_SESSION['booksPerPage']) ? $_SESSION['booksPerPage'] : 9;
+//echo $_SESSION['booksPerPage'];
+
+// Use $booksPerPage in your application logic, e.g., fetching books from the database
+// Example: SELECT * FROM books LIMIT $booksPerPage
 
 // Include the database configuration file
 require_once 'config.php';
@@ -8,8 +16,6 @@ require_once 'config.php';
 $baseURL = "https://cv.aut.ac.nz/";
 $basePath = "/var/www/html/moodle/";
 
-// Set the number of books per page
-$booksPerPage = 16;
 
 // Get the current page from the URL, default is 1
 $currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
@@ -131,6 +137,24 @@ if ($isAjax) {
             xhr.send();
             //location.reload();
         }
+        
+        function detectScreenSize() {
+            var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+            
+            // Set booksPerPage based on screen width
+            var booksPerPage;
+            if (screenWidth < 1024) {
+                booksPerPage = 9; // Mobile size            
+            } else {
+                booksPerPage = 8; // Desktop size
+            }
+
+            // Send screen size data to server using AJAX
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "set_books_per_page.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.send("booksPerPage=" + booksPerPage);
+        }
 
         document.addEventListener('DOMContentLoaded', function() {
             const searchInput = document.getElementById('searchInput');
@@ -143,20 +167,26 @@ if ($isAjax) {
         
         // Run searchBooks() once the page is fully loaded
         window.onload = function() {
+            detectScreenSize();
             const urlParams = new URLSearchParams(window.location.search);
         	const page = urlParams.get('page') || 1;
         	searchBooks(page);
         };
         
+        function clearSearch() {
+		// Send request to clear sessions and reload the page
+		window.location.href = 'clear_session.php';
+	    }
+        
     </script>
 </head>
 <body>
-<div class="container mt-5">
+<div class="container mt-1">
     <div id="headerContainer" class="d-flex justify-content-between align-items-center mb-4">
         <?php if (!isset($_GET['search'])): ?>
-        <h2><a href="gallery.php">Children's Voyage</a></h2>
+        <h2 class="d-none d-sm-block"><a href="gallery.php"><strong>C</strong>hildren's <strong>V</strong>oyage</a></h2>
         
-        <select id="levelSelect" class="form-control w-25 ml-3">
+        <select id="levelSelect" class="form-control w-10 ml-3">
             <option value="">All reading levels</option>
             <option value="29181" <?php echo $selectedLevel == 29181 ? 'selected' : ''; ?>>Ready to Read Phonics Plus</option>
             <option value="22576" <?php echo $selectedLevel == 22576 ? 'selected' : ''; ?>>Ready to Read Colour Wheel</option>
@@ -175,7 +205,8 @@ if ($isAjax) {
             <option value="22580" <?php echo $selectedLevel == 22580 ? 'selected' : ''; ?>>Connected series</option>
         </select>
         
-        <input type="text" id="searchInput" class="form-control w-25 ml-3" placeholder="Search by title..." value="<?php echo htmlspecialchars($searchQuery); ?>">
+        <input type="text" id="searchInput" class="form-control w-10 ml-3" placeholder="Search by title..." value="<?php echo htmlspecialchars($searchQuery); ?>">
+        <button class="btn btn-secondary ml-2" onclick="clearSearch()">Refresh</button>
         
         <?php endif; ?>
     </div>
