@@ -1,3 +1,25 @@
+<!-- Pagination Slider -->
+<nav aria-label="Page navigation">
+    <div class="d-flex justify-content-center overflow-auto">
+        <ul class="pagination" style="white-space: nowrap;">
+            <li class="page-item <?php if($currentPage <= 1) echo 'disabled'; ?>">
+                <a class="page-link" href="?page=<?php echo max(1, $currentPage - 1); ?>" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                <li class="page-item <?php if($i == $currentPage) echo 'active'; ?>">
+                    <a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+                </li>
+            <?php endfor; ?>
+            <li class="page-item <?php if($currentPage >= $totalPages) echo 'disabled'; ?>">
+                <a class="page-link" href="?page=<?php echo min($totalPages, $currentPage + 1); ?>" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
 <div class="row">
     <?php foreach ($books as $book): 
         // Replace the base path with the base URL for images
@@ -12,13 +34,13 @@
         // Replace '-' with spaces
         $caption = str_replace('-', ' ', $captionPart);
     ?>
-        <div class="col-lg-3 col-md-4 col-xs-12 mb-4">
+        <div class="col-lg-3 col-md-4 col-xs-12 mb-0">
         <!--
         <div class="col-3 mb-4">
         <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">-->
     <div class="image-container position-relative" style="overflow: hidden;">
         <a href="https://<?php echo $textLink; ?>&src=<?php echo $imageURL; ?>" target="_blank" style="display: block;">
-            <div class="image-wrapper" style="width: 100%; padding-bottom: 145%; position: relative; background-color: #f0f0f0;">
+            <div class="image-wrapper" style="width: 100%; padding-bottom: 150%; position: relative;">
                 <img src="<?php echo $imageURL; ?>" alt="Book Thumbnail" class="thumbnail img-fluid" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;">
             </div>
         </a>
@@ -33,68 +55,34 @@
     <?php endforeach; ?>
 </div>
 <hr/>
-<!-- Pagination -->
-<nav aria-label="Page navigation">
-    <ul class="pagination justify-content-center" style="max-width: 1024px; flex-wrap: wrap;">
-        <li class="page-item <?php if($currentPage <= 1) echo 'disabled'; ?>">
-            <a class="page-link" href="?page=<?php echo max(1, $currentPage - 1); ?>" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-            </a>
-        </li>
-        <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-            <li class="page-item <?php if($i == $currentPage) echo 'active'; ?>">
-                <a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
-            </li>
-        <?php endfor; ?>
-        <li class="page-item <?php if($currentPage >= $totalPages) echo 'disabled'; ?>">
-            <a class="page-link" href="?page=<?php echo min($totalPages, $currentPage + 1); ?>" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-            </a>
-        </li>
-    </ul>
-</nav>
 
 <style>
-    .image-container {
-        position: relative;
-        overflow: hidden;
-    }
+.pagination {
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+}
 
-    .image-container .thumbnail {
-        transition: transform 0.5s ease;
-    }
+.page-item {
+    flex: 0 0 auto; /* Prevent items from shrinking */
+}
 
-    .image-container:hover .thumbnail {
-        transform: scale(1.05);
-    }
+.page-item a.page-link {
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+}
 
-    .image-container .shine-effect {
-        position: absolute;
-        top: 0;
-        left: -75%;
-        width: 50%;
-        height: 100%;
-        background: rgba(255, 255, 255, 0.5);
-        transform: skewX(-20deg);
-        transition: left 0.5s ease;
-    }
+.page-item.active .page-link {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: white;
+}
 
-    .image-container:hover .shine-effect {
-        left: 125%;
-    }
-
-    .caption-container {
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-        padding: 5px;
-        background-color: rgba(255, 255, 255, 0.8);
-        text-align: center;
-    }
-
-    .caption-container p {
-        margin-bottom: 0;
-        color: black;
-    }
+.page-item.disabled .page-link {
+    color: #6c757d;
+    pointer-events: none;
+    cursor: not-allowed;
+}
 </style>
+
 
