@@ -1,4 +1,7 @@
 <?php
+// Include the database configuration file
+require_once '../books/config.php';
+
 if (!isset($_GET['u']) && !isset($_GET['src'])) {
     header("Location: gallery.php");
     exit();
@@ -56,6 +59,8 @@ $content = file_get_contents($tkiURL);
 // True because $a is empty
 if (empty($content)) {
   $content = file_get_contents("https://instructionalseries.tki.org.nz/Instructional-Series/".$tkiURL);
+  //echo "https://instructionalseries.tki.org.nz/Instructional-Series/".$tkiURL; return;
+  //echo $content;
 }
 
 $doc = new DOMDocument();
@@ -88,12 +93,12 @@ $jpgFile = $src;
 <div id="loadingIcon" class="loading">Loading audio file now. Please wait...</div>
 
   <div id="audioContainer" style="display: none;">
-    <a href="read.php?url=https://instructionalseries.tki.org.nz<?php echo $pdfFile; ?>" target="_blank">
+    <!--<a href="read.php?url=https://instructionalseries.tki.org.nz<?php echo $pdfFile; ?>" target="_blank">-->
       <audio id="audioPlayer" controls autoplay onplay="myFunction()" onended="window.top.close();">
         <source src="https://instructionalseries.tki.org.nz<?php echo $mp3File; ?>" type="audio/mpeg">
         Your browser does not support the audio element.
       </audio>
-    </a>
+    <!--</a>-->
   </div>
 
   <script>
@@ -109,14 +114,16 @@ $jpgFile = $src;
 <br/>
 <p>
 <button class="btn btn-secondary rounded-pill" style="display:inline-block;" onclick="window.close();">
-      Go Back
+      Close & Go Back
   </button>
 
+<a href="read.php?url=https://instructionalseries.tki.org.nz<?php echo $pdfFile; ?>" target="_blank">
   <button id="pdfButton" class="btn btn-primary rounded-pill" onclick="window.open('read.php?url=https://instructionalseries.tki.org.nz<?php echo $pdfFile; ?>', '_blank');">
-      Load PDF
+      Open PDF File
   </button>
+  </a>
   <hr/>
-  <p>Click Play button, the PDF file will be loaded automatically! If not, click 'Load PDF'.</p>
+  <p>Click <strong>Play</strong> button to listen to the Audio file, and click <strong>'Open PDF File'</strong> for the book.</p>
 <?php } else { ?>
   <!-- Display "Read PDF now" button if MP3 file doesn't exist -->
 <!-- Go Back Button -->
@@ -133,7 +140,7 @@ $jpgFile = $src;
 
 <p>
   <?php if(isset($imageURL) && !empty($imageURL)): ?>
-    <img src="<?php echo $imageURL; ?>" style="width: 75%;">
+    <img src="<?php echo $imageURL; ?>" style="max-width: 75%;max-height: 640px;">
   <?php else: ?>
     <img src="https://instructionalseries.tki.org.nz<?php echo $jpgFile; ?>" height="100%">
   <?php endif; ?>
@@ -145,7 +152,7 @@ $jpgFile = $src;
 <iframe src="read.php?url=https://instructionalseries.tki.org.nz<?php echo $pdfFile; ?>" style="display:none"></iframe>
 <script>
 function myFunction() {
-  window.open('read.php?url=https://instructionalseries.tki.org.nz<?php echo $pdfFile; ?>','_blank').focus();  
+  //window.open('read.php?url=https://instructionalseries.tki.org.nz<?php echo $pdfFile; ?>','_blank').focus();  
 }
 </script>
 
